@@ -4,8 +4,8 @@
 Mobile/node_modules
 
 # Backend modules
-*/bin
-*/obj
+Backend/**/bin
+Backend/**/obj
 
 # compiled output
 /dist
