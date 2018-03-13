@@ -21,7 +21,7 @@ namespace Business
             return this.repository.Insert(marker);
         }
 
-        public List<Marker> GetMarkersArround(double distance)
+        public List<Marker> GetMarkersArround(Marker m, double distance)
         {
             // Regras de cálculo de distância aqui...
 

@@ -16,6 +16,11 @@ namespace DefaultArchitecture.Controllers
             this.markerServices = markerService;
         }
 
+        [HttpGet]
+        public IActionResult GetMarkers()
+        {
+            return this.markerServices.GetMarkersArround()
+        }
 
         [HttpPost]
         public IActionResult AddMarker([FromBody] Marker marker)
