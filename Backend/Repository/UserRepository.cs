@@ -1,24 +1,26 @@
-﻿using Domain;
-using Persistence;
+﻿using Persistence;
 using Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Entities;
+using System;
+using System.Reactive.Linq;
 
 namespace Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IUserRepositoryAsync
     {
-        private Crud<User> crud;
+        private ICrud<long, User> crud;
         private DaoContext context;
 
-        public UserRepository(DaoContext daoContext)
+        public UserRepository(DaoContext daoContext, ICrud<long, User> crud)
         {
             this.context = daoContext;
-            crud = new Crud<User>(daoContext);
+            this.crud = crud;
         }
 
-        public bool Exists(User user)
+        public bool IsRegistred(User user)
         {
             return this.context.Manipulate<User>().Any(x => x.Email == user.Email);
         }
@@ -46,5 +48,24 @@ namespace Repository
             return crud.SelectAll();
         }
 
+        public IObservable<bool> IsRegistredAsync(User user)
+        {
+            return Observable.ToAsync<User, bool>(this.IsRegistred)(user);
+        }
+
+        public IObservable<User> LoginAsync(string email, string password)
+        {
+            return Observable.ToAsync<string, string, User>(this.Login)(email, password);
+        }
+
+        public IObservable<User> RegisterAsync(User user)
+        {
+            return Observable.ToAsync<User, User>(this.Register)(user);
+        }
+
+        public IObservable<List<User>> SelectAllAsync()
+        {
+            return Observable.ToAsync(this.SelectAll)();
+        }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Extensions
 {
-    public static class Cryptography
+    public static class Hashing
     {
 
         public static string ToSHA256(this string input)
@@ -39,7 +37,29 @@ namespace Extensions
                 return GetStringFromHash(hash);
             }
         }
+        
+        public static string ToMD5<T>(this T obj, params Func<T, string>[] funcs)
+        {
+            var str = new StringBuilder();
+            foreach (var func in funcs)
+            {
+                str.AppendLine(func.Invoke(obj));
+            }
+            return str.ToString().ToMD5();
+        }
 
+        public static string ToMD5<T>(this ICollection<T> collection, params Func<T, string>[] funcs)
+        {
+            var str = new StringBuilder();
+            foreach(var func in funcs)
+            {
+                foreach(var item in collection)
+                {
+                    str.AppendLine(func.Invoke(item));
+                }
+            }
+            return str.ToString().ToMD5();
+        }
 
         private static string GetStringFromHash(byte[] hash)
         {
@@ -50,6 +70,5 @@ namespace Extensions
             }
             return result.ToString();
         }
-
     }
 }

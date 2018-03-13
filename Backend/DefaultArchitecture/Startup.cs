@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Persistence;
 using Microsoft.Extensions.Logging;
@@ -39,15 +39,16 @@ namespace DefaultArchitecture
             //Injecting the services (See: Injector.cs)
             services.InjectServices();
 
-            //Configuring CORS
-            services.AddCors(config =>
+            //Configuring CORS (Only for )
+            services.AddCors(options =>
             {
-                var policy = new CorsPolicy();
-                policy.Headers.Add("*");
-                policy.Methods.Add("*");
-                policy.Origins.Add("*");
-                policy.SupportsCredentials = true;
-                config.AddPolicy("policy", policy);
+                options.AddPolicy("PublicApi", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+
             });
 
             //Load the Jwt Configuration from the appsettings.json (See 'JwtConfiguration' section in appsettings.json)
@@ -96,6 +97,10 @@ namespace DefaultArchitecture
                 app.UseDeveloperExceptionPage();
             }
 
+            //Enables the use of wwwroot (Angular application)
+            //app.UseDefaultFiles(); //Set index.html as default entry point/
+            //app.UseStaticFiles(); //Allows the use of wwwroot folder
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -104,8 +109,11 @@ namespace DefaultArchitecture
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DefaultArchitecture V1");
             });
-            
-            app.UseCors("policy");
+
+            //Use our middleware to Antiforgery token to avoid CSRF attack
+            app.UseMiddleware<JwtAntiforgeryTokenMiddleware>();
+
+            app.UseCors("PublicApi");
             app.UseAuthentication();
             app.UseMvc();
         }

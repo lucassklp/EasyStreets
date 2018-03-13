@@ -40,6 +40,7 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new UserRoleMap());
+            modelBuilder.ApplyConfiguration(new MarkerMap());
 
             base.OnModelCreating(modelBuilder);
         }

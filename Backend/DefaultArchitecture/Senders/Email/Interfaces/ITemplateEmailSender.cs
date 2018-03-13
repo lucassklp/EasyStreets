@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DefaultArchitecture.Senders.Email.Interfaces
 {
-    public interface ITemplateEmailSender<T> : ISender, ISenderAsynchronous
-        where T : PageModel
+    public interface ITemplateEmailSender
     {
+        IEmailSender EmailSender { get; set; }
+        void Send<T>(T model) where T : PageModel;
+        void SendAsync<T>(T model) where T : PageModel;
     }
 }
