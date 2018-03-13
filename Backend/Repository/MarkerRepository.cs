@@ -24,5 +24,10 @@ namespace Repository
             return m;
         }
 
+        public List<Marker> SelectAll()
+        {
+            return this.crud.SelectAll();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Business.Interfaces;
 using DefaultArchitecture.Validators;
+using Domain.Dtos;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,24 @@ namespace DefaultArchitecture.Controllers
             this.markerServices = markerService;
         }
 
+
         [HttpGet]
-        public IActionResult GetMarkers()
+        public IActionResult ListMarkers()
         {
-            return this.markerServices.GetMarkersArround()
+            return Ok(this.markerServices.List());
+        }
+
+        [HttpGet]
+        [Route("around")]
+        public IActionResult GetMarkersAround([FromBody] MarkersAroundParametersDto param)
+        {
+            var validation = new MarkersAroundParametersValidation();
+            var results = validation.Validate(param);
+            if (results.IsValid)
+            {
+                return Ok(this.markerServices.GetMarkersArround(param));
+            }
+            else return BadRequest(results.Errors);
         }
 
         [HttpPost]

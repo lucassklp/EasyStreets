@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Interfaces;
+using Domain.Dtos;
 using Domain.Entities;
 using Repository.Interfaces;
 
@@ -21,10 +22,17 @@ namespace Business
             return this.repository.Insert(marker);
         }
 
-        public List<Marker> GetMarkersArround(Marker m, double distance)
+        public List<Marker> GetMarkersArround(MarkersAroundParametersDto param)
         {
             // Regras de cálculo de distância aqui...
+            // Mockado por enquanto:
+            //return this.repository.SelectAll();
+            throw new NotImplementedException();
+        }
 
+        public List<Marker> List()
+        {
+            return this.repository.SelectAll();
         }
     }
 }

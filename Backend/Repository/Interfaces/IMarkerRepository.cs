@@ -8,5 +8,6 @@ namespace Repository.Interfaces
     public interface IMarkerRepository
     {
         Marker Insert(Marker m);
+        List<Marker> SelectAll();
     }
 }
