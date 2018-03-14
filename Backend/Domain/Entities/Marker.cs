@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Marker : Identifiable<long>
     {
@@ -11,5 +7,6 @@ namespace Domain.Entities
         public double Longitude { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
+        public StreetFurniture StreetFurniture { get; set; }
     }
 }
