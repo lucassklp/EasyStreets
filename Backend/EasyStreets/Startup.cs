@@ -84,7 +84,9 @@ namespace EasyStreets
             //Add the Swagger for API documentation
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "DefaultArchitecture API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "EasyStreets API", Version = "v1" });
+                c.DescribeAllEnumsAsStrings();
+                c.DescribeStringEnumsInCamelCase();
             });
         }
 
@@ -107,7 +109,7 @@ namespace EasyStreets
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DefaultArchitecture V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EasyStreets V1");
             });
 
             //Use our middleware to Antiforgery token to avoid CSRF attack

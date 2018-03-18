@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using FluentValidation.Results;
 
 namespace EasyStreets.Controllers
 {
@@ -36,6 +38,8 @@ namespace EasyStreets.Controllers
         }
 
         [HttpPost]
+        [Route("register")]
+        [Produces("application/json")]
         public IActionResult Register([FromBody] User user)
         {
             //Validate the user
