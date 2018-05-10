@@ -13,10 +13,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
+using Extensions;
+using System.Linq;
 
 namespace EasyStreets.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
     [AllowAnonymous]
     [Route("api/account")]
     public class AccountController : Controller
@@ -57,7 +58,7 @@ namespace EasyStreets.Controllers
                 catch(UserExistentException ex)
                 {
                     logger.LogInformation(ex.Message);
-                    return BadRequest(new { ex.Message,  ex.ErrorCode });
+                    return BadRequest(new { ex.Message });
                 }
                 catch(Exception ex)
                 {
@@ -65,7 +66,7 @@ namespace EasyStreets.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError);
                 }
             }
-            else return BadRequest(results.Errors);
+            else return BadRequest(results.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
         }
     }
 }
