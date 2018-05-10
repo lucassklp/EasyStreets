@@ -50,30 +50,30 @@ namespace EasyStreets.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("refresh-token")]
-        [HttpPost]
-        public IActionResult RefreshToken([FromBody]string token)
-        {
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                return BadRequest("refreshToken is not set.");
-            }
+        //[Route("refresh-token")]
+        //[HttpPost]
+        //public IActionResult RefreshToken([FromBody]string token)
+        //{
+        //    if (string.IsNullOrWhiteSpace(token))
+        //    {
+        //        return BadRequest("refreshToken is not set.");
+        //    }
 
-            if (!JwtTokenStorage.TokenExists(token))
-            {
-                return Unauthorized();
-            }
+        //    if (!JwtTokenStorage.TokenExists(token))
+        //    {
+        //        return Unauthorized();
+        //    }
 
-            throw new NotImplementedException();
+        //    throw new NotImplementedException();
 
-            string newToken = "";
-            JwtTokenStorage.RefreshToken(token, newToken);
+        //    string newToken = "";
+        //    JwtTokenStorage.RefreshToken(token, newToken);
 
-            return Ok(JsonConvert.SerializeObject(new
-            {
-                newToken
-            }));
-        }
+        //    return Ok(JsonConvert.SerializeObject(new
+        //    {
+        //        newToken
+        //    }));
+        //}
 
     }
 }
