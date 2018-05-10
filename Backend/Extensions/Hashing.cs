@@ -37,7 +37,7 @@ namespace Extensions
                 return GetStringFromHash(hash);
             }
         }
-        
+
         public static string ToMD5<T>(this T obj, params Func<T, string>[] funcs)
         {
             var str = new StringBuilder();
@@ -51,9 +51,9 @@ namespace Extensions
         public static string ToMD5<T>(this ICollection<T> collection, params Func<T, string>[] funcs)
         {
             var str = new StringBuilder();
-            foreach(var func in funcs)
+            foreach (var func in funcs)
             {
-                foreach(var item in collection)
+                foreach (var item in collection)
                 {
                     str.AppendLine(func.Invoke(item));
                 }
