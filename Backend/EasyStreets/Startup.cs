@@ -113,7 +113,7 @@ namespace EasyStreets
             });
 
             //Use our middleware to Antiforgery token to avoid CSRF attack
-            app.UseMiddleware<JwtAntiforgeryTokenMiddleware>();
+            //app.UseMiddleware<JwtAntiforgeryTokenMiddleware>();
 
             app.UseCors("PublicApi");
             app.UseAuthentication();
