@@ -52,18 +52,6 @@ namespace EasyStreets.Controllers
                 try
                 {
                     var userRegistred = this.userServices.Register(user);
-
-                    var pageModel = new AccountCreatedSuccessfullyModel();
-                    pageModel.Name = user.Name;
-                    pageModel.Email = user.Email;
-
-                    var emailConfig = EmailConfiguration.GetFromConfiguration(configuration, "No Reply");
-                    var emailSender = new EmailSender(emailConfig);
-                    emailSender.To = user.Email;
-
-                    templateEmailSender.EmailSender = emailSender;
-                    templateEmailSender.SendAsync(pageModel);
-
                     return Ok(userRegistred);
                 }
                 catch(UserExistentException ex)
