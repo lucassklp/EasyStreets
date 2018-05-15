@@ -16,6 +16,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
+//Comentário de teste
 public class BlankFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private static final String TAG = "MapsActivity";
