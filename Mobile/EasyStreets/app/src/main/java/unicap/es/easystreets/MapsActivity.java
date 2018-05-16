@@ -1,11 +1,7 @@
-package com.example.japa.projetomobile;
+package unicap.es.easystreets;
 
-
-import android.content.Context;
-import android.location.Criteria;
-import android.location.LocationManager;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.os.TokenWatcher;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,17 +11,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getMapAsync(this);
-
-
+        setContentView(R.layout.activity_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
 
@@ -40,16 +37,15 @@ public class MapsActivity extends SupportMapFragment implements OnMapReadyCallba
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
+        mMap.setOnMapClickListener(this);
 
-            mMap = googleMap;
-
-            mMap.setOnMapClickListener(this);
-
-            mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
 
         // Add a marker in Sydney and move the camera
+
         LatLng unicap = new LatLng(-8.0549845,-34.8883952);
 
         MarkerOptions markerOptions = new MarkerOptions();
@@ -65,13 +61,13 @@ public class MapsActivity extends SupportMapFragment implements OnMapReadyCallba
 
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(unicap));
+
+
+
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Toast.makeText(getContext(), "Coordenadas" + latLng, Toast.LENGTH_SHORT).show();
-
-
-
+        Toast.makeText(MapsActivity.this, "Coordenadas" + latLng, Toast.LENGTH_SHORT).show();
     }
 }
