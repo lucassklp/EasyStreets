@@ -49,7 +49,9 @@ public class MapsActivity extends SupportMapFragment implements OnMapReadyCallba
             mMap.getUiSettings().setZoomControlsEnabled(true);
 
 
-        // Add a marker in Sydney and move the camera
+        // Adicionar a marca e mover a camera
+        //Teste
+        //testando
         LatLng unicap = new LatLng(-8.0549845,-34.8883952);
 
         MarkerOptions markerOptions = new MarkerOptions();
