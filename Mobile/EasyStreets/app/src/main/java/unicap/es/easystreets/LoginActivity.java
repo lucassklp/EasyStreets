@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,8 +31,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import unicap.es.easystreets.model.Marker;
+import unicap.es.easystreets.rest.RequestQueueSingleton;
+import unicap.es.easystreets.rest.RestRequest;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -63,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private List<Marker> markers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +104,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
+
+
+        try {
+            //PQ java é uma porcaria, pt. 1:
+            Type type = new TypeToken<List<Marker>>(){}.getType();
+
+            RestRequest<Object, List<Marker>> request = new RestRequest(Object.class, type);
+            request.setUrl("http://191.232.198.225:5000/api/marker");
+            request.setMethod(Request.Method.GET);
+            request.execute(LoginActivity.this, new Marker(),  it -> Log.d("SUCESSO", "HUEHUE"), err -> Log.d("ERRO", "ERRO :C - " + err.getMessage()));
+
+
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
     }
 
     private void populateAutoComplete() {

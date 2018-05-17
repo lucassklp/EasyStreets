@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
     public enum StreetFurniture : int
     {
-        BusStop = 1,                    //pontos de ônibus
+        BusStop,                        //pontos de ônibus
         TaxiPoints,                     //pontos de táxi
         MailBoxes,                      //caixas de coleta de correio
         Hydrants,                       //hidrantes
