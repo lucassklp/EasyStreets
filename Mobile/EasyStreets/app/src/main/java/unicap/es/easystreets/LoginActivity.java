@@ -1,5 +1,6 @@
 package unicap.es.easystreets;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -41,6 +43,7 @@ import java.util.List;
 import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.rest.RequestQueueSingleton;
 import unicap.es.easystreets.rest.RestRequest;
+import unicap.es.easystreets.utils.PermissionUtils;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        enableMyLocation();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -106,24 +109,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
 
 
-
-
         try {
-            //PQ java é uma porcaria, pt. 1:
-            Type type = new TypeToken<List<Marker>>(){}.getType();
-
-            RestRequest<Object, List<Marker>> request = new RestRequest(Object.class, type);
-            request.setUrl("http://191.232.198.225:5000/api/marker");
-            request.setMethod(Request.Method.GET);
-            request.execute(LoginActivity.this, new Marker(),  it -> Log.d("SUCESSO", "HUEHUE"), err -> Log.d("ERRO", "ERRO :C - " + err.getMessage()));
-
-
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
 
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, 1,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        }
     }
 
     private void populateAutoComplete() {

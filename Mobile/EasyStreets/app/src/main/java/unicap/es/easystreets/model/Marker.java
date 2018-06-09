@@ -1,13 +1,16 @@
 package unicap.es.easystreets.model;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 public class Marker {
 
-    public long id;
-    public double latitude;
-    public double longitude;
-    public String description;
-    public String title;
-    public StreetFurniture streetFurniture;
+    private long id;
+    private double latitude;
+    private double longitude;
+    private String description;
+    private String title;
+    private StreetFurniture streetFurniture;
 
     public long getId() {
         return id;
@@ -55,5 +58,12 @@ public class Marker {
 
     public void setStreetFurniture(StreetFurniture streetFurniture) {
         this.streetFurniture = streetFurniture;
+    }
+
+    public MarkerOptions getMarkerOptions(){
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(new LatLng(this.getLatitude(), this.getLongitude()));
+        markerOptions.title(this.getTitle());
+        return markerOptions;
     }
 }
