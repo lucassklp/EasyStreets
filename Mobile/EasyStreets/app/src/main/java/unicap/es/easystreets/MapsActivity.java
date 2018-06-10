@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
+import unicap.es.easystreets.model.User;
 import unicap.es.easystreets.rest.RestRequest;
 import unicap.es.easystreets.utils.PermissionUtils;
 
@@ -120,7 +121,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             markr.setTitle(etTitle.getText().toString());
             markr.setDescription(etDescription.getText().toString());
-
+          
             markr.setStreetFurniture(StreetFurniture.values()[0]);
 
             RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
