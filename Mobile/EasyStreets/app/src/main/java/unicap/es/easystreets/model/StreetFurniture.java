@@ -54,7 +54,7 @@ public enum StreetFurniture {
     @SerializedName("23")
     InformationMedia(R.drawable.bus_stop, ""),               //suportes informativos e expositores
     @SerializedName("24")
-    GymStructures(R.drawable.bus_stop, "");                  //estruturas de ginástica para seniores
+    GymStructures(R.drawable.gym, "Gym Structures");                  //estruturas de ginástica para seniores
 
     private int resource;
     private String description;
