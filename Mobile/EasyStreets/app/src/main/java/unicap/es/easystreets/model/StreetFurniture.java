@@ -8,51 +8,51 @@ public enum StreetFurniture {
     @SerializedName("0")
     BusStop(R.drawable.bus_stop, "Bus Stop"),                       //pontos de ônibus
     @SerializedName("1")
-    TaxiPoints(R.drawable.bus_stop, ""),                     //pontos de táxi
+    TaxiPoints(R.drawable.taxi_stand, "Taxi Point"),                     //pontos de táxi
     @SerializedName("2")
-    MailBoxes(R.drawable.bus_stop, ""),                      //caixas de coleta de correio
+    MailBoxes(R.drawable.mail_box, "Mail Box"),                      //caixas de coleta de correio
     @SerializedName("3")
-    Hydrants(R.drawable.bus_stop, ""),                       //hidrantes
+    Hydrants(R.drawable.hydrant, "Hydrant"),                       //hidrantes
     @SerializedName("4")
     TelephoneNetworkCabinets(R.drawable.bus_stop, ""),       //armários da rede telefônica
     @SerializedName("5")
-    ElectricalNetworkCabinets(R.drawable.bus_stop, ""),      //armários da rede elétrica
+    ElectricalNetworkCabinets(R.drawable.eletrical_netw_cabinet, "Eletrical Network Cabinets"),      //armários da rede elétrica
     @SerializedName("6")
-    Seats(R.drawable.bus_stop, ""),                          //bancos com ou sem costas
+    Seats(R.drawable.seat, "Seat"),                          //bancos com ou sem costas
     @SerializedName("7")
-    Vase(R.drawable.bus_stop, ""),                           //vasos
+    Vase(R.drawable.vase, "Vase"),                           //vasos
     @SerializedName("8")
-    Trash(R.drawable.bus_stop, ""),                          //lixeiras ou papeleiras
+    Trash(R.drawable.trash, "Trash"),                          //lixeiras ou papeleiras
     @SerializedName("9")
-    LightingPoles(R.drawable.bus_stop, ""),                  //postes de iluminação
+    LightingPoles(R.drawable.ligh_poles, "Lighting Poles"),                  //postes de iluminação
     @SerializedName("10")
-    PowerPoles(R.drawable.bus_stop, ""),                     //postes da rede elétrica
+    PowerPoles(R.drawable.power_poles, "Power Poles"),                     //postes da rede elétrica
     @SerializedName("11")
-    SignPosts(R.drawable.bus_stop, ""),                      //postes de sinalização
+    SignPosts(R.drawable.sign_posts, "Sign Post"),                      //postes de sinalização
     @SerializedName("12")
-    BikeSpot(R.drawable.bus_stop, ""),                       //apoios ou parqueamento de bicicletas
+    BikeSpot(R.drawable.bike_spot, "Bike Spot"),                       //apoios ou parqueamento de bicicletas
     @SerializedName("13")
     Beacon(R.drawable.bus_stop, ""),                         //divisores, guias e balizadores (fradinhos, pilones, etc)
     @SerializedName("14")
-    WaterSource(R.drawable.bus_stop, ""),                    //fontes ou bebedouros
+    WaterSource(R.drawable.water_source, "Water Source"),                    //fontes ou bebedouros
     @SerializedName("15")
-    Newsstands(R.drawable.bus_stop, ""),                     //bancas de jornal
+    Newsstands(R.drawable.news_stand, "News Stand"),                     //bancas de jornal
     @SerializedName("16")
-    FlowerStands(R.drawable.bus_stop, ""),                   //bancas de flores ou floreiras
+    FlowerStands(R.drawable.flower_stand, "Flower Stand"),                   //bancas de flores ou floreiras
     @SerializedName("17")
-    Clocks(R.drawable.bus_stop, ""),                         //relógios
+    Clocks(R.drawable.clock, "Clock"),                         //relógios
     @SerializedName("18")
-    TablesWithBenches(R.drawable.bus_stop, ""),              //mesas com bancos
+    TablesWithBenches(R.drawable.table_with_benches, "Table with benches"),              //mesas com bancos
     @SerializedName("19")
-    Handrails(R.drawable.bus_stop, ""),                      //guardas e corrimãos
+    Handrails(R.drawable.handrails, "Handrails"),                      //guardas e corrimãos
     @SerializedName("20")
     Grills(R.drawable.bus_stop, ""),                         //grelhas para caldeiras de árvores
     @SerializedName("21")
-    ShadingStructures(R.drawable.bus_stop, ""),              //estruturas de sombreamento
+    ShadingStructures(R.drawable.shading_struct, "Shading Structures"),              //estruturas de sombreamento
     @SerializedName("22")
     Dispenser(R.drawable.dispensa_degetos, "Dispenser"),     //dispensador de sacos para dejetos caninos
     @SerializedName("23")
-    InformationMedia(R.drawable.bus_stop, ""),               //suportes informativos e expositores
+    InformationMedia(R.drawable.information, "Information Media"),               //suportes informativos e expositores
     @SerializedName("24")
     GymStructures(R.drawable.gym, "Gym Structures");                  //estruturas de ginástica para seniores
 
