@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.auth0.android.jwt.JWT;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -25,8 +27,15 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
-                    startActivity(intent);
+                    JWT jwt = new JWT(token);
+                    if(jwt.isExpired(0)){
+                        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 finish();
             }

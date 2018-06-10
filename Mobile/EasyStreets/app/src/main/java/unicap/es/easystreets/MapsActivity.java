@@ -9,8 +9,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -94,35 +99,50 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, err -> {
             Toast.makeText(this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
         });
-
-
-
-
-
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Marker markr = new Marker();
-        markr.setLatitude(latLng.latitude);
-        markr.setLongitude(latLng.longitude);
-        markr.setDescription("Descrição teste");
-        markr.setStreetFurniture(StreetFurniture.BusStop);
-        markr.setTitle("Titulo");
 
+        AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_marker, null);
+        EditText etTitle = mView.findViewById(R.id.txtTitle);
+        EditText etDescription = mView.findViewById(R.id.txtDescription);
+        Spinner spinner = mView.findViewById(R.id.spinner);
+        Button btn = mView.findViewById(R.id.btnAddMarker);
 
-        RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
-        request.setUrl(RestRequest.BASE_URL + "marker");
-        request.setMethod(Request.Method.POST);
+        mAlertBuilder.setView(mView);
+        AlertDialog dialog = mAlertBuilder.create();
 
-        request.execute(this, markr, response -> {
-            MarkerOptions marker = new MarkerOptions();
-            marker.position(latLng);
-            mMap.addMarker(marker);
-            Toast.makeText(this, "Adicionado com sucesso" + latLng, Toast.LENGTH_SHORT).show();
-        }, err -> {
-            Toast.makeText(this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
+        btn.setOnClickListener(v -> {
+            Marker markr = new Marker();
+            markr.setLatitude(latLng.latitude);
+            markr.setLongitude(latLng.longitude);
+
+            markr.setTitle(etTitle.getText().toString());
+            markr.setDescription(etDescription.getText().toString());
+          
+            markr.setStreetFurniture(StreetFurniture.values()[0]);
+
+            RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
+            request.setUrl(RestRequest.BASE_URL + "marker");
+            request.setMethod(Request.Method.POST);
+
+            request.execute(MapsActivity.this, markr, response -> {
+                MarkerOptions marker = new MarkerOptions();
+                marker.position(latLng);
+                mMap.addMarker(marker);
+                Toast.makeText(MapsActivity.this, "Adicionado com sucesso" + latLng, Toast.LENGTH_SHORT).show();
+            }, err -> {
+                Toast.makeText(MapsActivity.this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+
+            dialog.dismiss();
         });
+
+
+
+        dialog.show();
     }
 
     @Override

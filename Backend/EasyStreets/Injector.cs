@@ -27,7 +27,7 @@ namespace EasyStreets
 
             // Injecting security resources
             services.AddScoped(typeof(ISecurity<User>), typeof(JwtSecurity));
-            services.AddScoped<ITokenValidator, JwtTokenValidation>();
+            //services.AddScoped<ITokenValidator, JwtTokenValidation>();
 
             // Injecting services
             services.AddTransient<IUserServices, UserServices>();

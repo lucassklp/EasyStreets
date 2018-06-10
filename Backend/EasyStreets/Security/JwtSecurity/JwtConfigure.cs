@@ -39,35 +39,7 @@ namespace EasyStreets.Security.JwtSecurity
                     ValidateLifetime = JwtTokenDefinitions.ValidateLifetime,
                     ClockSkew = JwtTokenDefinitions.ClockSkew
                 };
-
-                //Events in authentication
-                options.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = context =>
-                    {
-                        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
-                        logger.LogError("Authentication failed. ", context.Exception);
-                        return Task.CompletedTask;
-                    },
-                    OnTokenValidated = context =>
-                    {
-                        var tokenValidatorService = context.HttpContext.RequestServices.GetRequiredService<ITokenValidator>();
-                        return tokenValidatorService.ValidateAsync(context);
-                    },
-                    OnMessageReceived = context =>
-                    {
-                        return Task.CompletedTask;
-                    },
-                    OnChallenge = context =>
-                    {
-                        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
-                        logger.LogError("OnChallenge error. ", context.Error, context.ErrorDescription);
-                        return Task.CompletedTask;
-                    }
-                };
             });
-
-            services.AddAntiforgery(x => x.HeaderName = "X-XSRF-TOKEN");
         }
     }
 }
