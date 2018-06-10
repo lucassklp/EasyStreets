@@ -34,7 +34,8 @@ namespace EasyStreets.Controllers
                 {
                     return Ok(JsonConvert.SerializeObject(new
                     {
-                        token = security.Login(user)
+                        token = security.Login(user),
+                        user
                     }));
                 }
                 else return BadRequest();

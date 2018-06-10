@@ -26,8 +26,12 @@ namespace EasyStreets.Security.JwtSecurity
             var existUser = userRepository.Login(identity.Email, identity.Password.ToSHA512());
             if (existUser != null)
             {
+                identity.Name = existUser.Name;
+                identity.ID = existUser.ID;
+                identity.Password = null;
+                identity.UserRoles = null;
+
                 var token = this.GenerateToken(existUser);
-                JwtTokenStorage.AddToken(existUser.ID, token);
                 return token;
             }
             else return null;

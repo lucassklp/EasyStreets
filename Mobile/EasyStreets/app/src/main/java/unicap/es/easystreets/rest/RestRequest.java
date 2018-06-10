@@ -1,6 +1,7 @@
 package unicap.es.easystreets.rest;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -23,8 +24,8 @@ import java.util.function.Consumer;
 public class RestRequest<TParam, TResult> {
 
 
-    public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
-    //public final static String BASE_URL = "http://192.168.1.3:5000/api/";
+    //public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
+    public final static String BASE_URL = "http://192.168.1.5:5000/api/";
 
     private Class<TParam> typeParam;
     private Type typeResult;
@@ -56,6 +57,11 @@ public class RestRequest<TParam, TResult> {
     }
 
     public void execute(Context ctx, TParam param, final Consumer<TResult> onSuccess, final Consumer<VolleyError> onError) {
+        SharedPreferences sharedPreferences =
+                ctx.getSharedPreferences("token", Context.MODE_PRIVATE);
+
+        String token = sharedPreferences.getString("token", "");
+        putHeader("Authorization", "Bearer " + token);
         this.onSuccess = onSuccess;
         this.onError = onError;
         this.object = param;

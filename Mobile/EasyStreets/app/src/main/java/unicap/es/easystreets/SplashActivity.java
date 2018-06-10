@@ -1,6 +1,8 @@
 package unicap.es.easystreets;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +18,16 @@ public class SplashActivity extends AppCompatActivity {
         handle.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences("token", Context.MODE_PRIVATE);
+                String token = sharedPreferences.getString("token", "");
+                if(token == null || token.isEmpty()){
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         }, 2000);

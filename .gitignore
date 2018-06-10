@@ -48,3 +48,12 @@ testem.log
 .DS_Store
 Thumbs.db
 Backend/.vs/DefaultArchitecture/v15/.suo
+Backend/.vs/config/applicationhost.config
+Backend/.vs/DefaultArchitecture/v15/.suo
+Backend/.vs/DefaultArchitecture/v15/Server/sqlite3/db.lock
+Backend/.vs/DefaultArchitecture/v15/Server/sqlite3/storage.ide
+Backend/.vs/EasyStreets/v15/.suo
+Backend/.vs/EasyStreets/v15/Server/sqlite3/db.lock
+Backend/.vs/EasyStreets/v15/Server/sqlite3/storage.ide
+Backend/.vs/EasyStreets/v15/Server/sqlite3/storage.ide-shm
+Backend/.vs/EasyStreets/v15/Server/sqlite3/storage.ide-wal
