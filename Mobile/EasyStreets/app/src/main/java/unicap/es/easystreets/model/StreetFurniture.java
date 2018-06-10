@@ -14,7 +14,7 @@ public enum StreetFurniture {
     @SerializedName("3")
     Hydrants(R.drawable.hydrant, "Hydrant"),                       //hidrantes
     @SerializedName("4")
-    TelephoneNetworkCabinets(R.drawable.bus_stop, ""),       //armários da rede telefônica
+    TelephoneNetworkCabinets(R.drawable.telephone, "Telephone Network Cabinet"),       //armários da rede telefônica
     @SerializedName("5")
     ElectricalNetworkCabinets(R.drawable.eletrical_netw_cabinet, "Eletrical Network Cabinets"),      //armários da rede elétrica
     @SerializedName("6")
@@ -32,7 +32,7 @@ public enum StreetFurniture {
     @SerializedName("12")
     BikeSpot(R.drawable.bike_spot, "Bike Spot"),                       //apoios ou parqueamento de bicicletas
     @SerializedName("13")
-    Beacon(R.drawable.bus_stop, ""),                         //divisores, guias e balizadores (fradinhos, pilones, etc)
+    Beacon(R.drawable.handrails, "Beacon"),                         //divisores, guias e balizadores (fradinhos, pilones, etc)
     @SerializedName("14")
     WaterSource(R.drawable.water_source, "Water Source"),                    //fontes ou bebedouros
     @SerializedName("15")
@@ -46,7 +46,7 @@ public enum StreetFurniture {
     @SerializedName("19")
     Handrails(R.drawable.handrails, "Handrails"),                      //guardas e corrimãos
     @SerializedName("20")
-    Grills(R.drawable.bus_stop, ""),                         //grelhas para caldeiras de árvores
+    Grills(R.drawable.grill, "Grill"),                         //grelhas para caldeiras de árvores
     @SerializedName("21")
     ShadingStructures(R.drawable.shading_struct, "Shading Structures"),              //estruturas de sombreamento
     @SerializedName("22")
