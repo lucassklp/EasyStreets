@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 
 import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
+import unicap.es.easystreets.model.User;
 import unicap.es.easystreets.rest.RestRequest;
 import unicap.es.easystreets.utils.PermissionUtils;
 
@@ -106,7 +107,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         markr.setLatitude(latLng.latitude);
         markr.setLongitude(latLng.longitude);
         markr.setDescription("Descrição teste");
-        markr.setStreetFurniture(StreetFurniture.GymStructures);
+        markr.setStreetFurniture(StreetFurniture.BusStop);
         markr.setTitle("Titulo");
 
 
