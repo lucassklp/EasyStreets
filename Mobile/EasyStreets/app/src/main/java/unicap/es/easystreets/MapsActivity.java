@@ -93,11 +93,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }, err -> {
             Toast.makeText(this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
         });
-
-
-
-
-
     }
 
     @Override

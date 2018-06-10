@@ -46,5 +46,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.0.2'
 
 
+    compile 'com.auth0.android:jwtdecode:1.1.1'
+
 
 }

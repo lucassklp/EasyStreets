@@ -1,6 +1,8 @@
 package unicap.es.easystreets.rest;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -21,11 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import unicap.es.easystreets.LoginActivity;
+
 public class RestRequest<TParam, TResult> {
 
 
     //public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
-    public final static String BASE_URL = "http://192.168.1.5:5000/api/";
+    public final static String BASE_URL = "http://192.168.1.3:5000/api/";
 
     private Class<TParam> typeParam;
     private Type typeResult;
@@ -36,7 +40,7 @@ public class RestRequest<TParam, TResult> {
     private Consumer<TResult> onSuccess;
     private Consumer<VolleyError> onError;
     private TParam object;
-
+    Context ctx;
     public RestRequest(Class<TParam> typeParam, Type typeResult){
         this.typeParam = typeParam;
         this.typeResult = typeResult;
@@ -62,6 +66,8 @@ public class RestRequest<TParam, TResult> {
 
         String token = sharedPreferences.getString("token", "");
         putHeader("Authorization", "Bearer " + token);
+
+        this.ctx = ctx;
         this.onSuccess = onSuccess;
         this.onError = onError;
         this.object = param;
@@ -74,7 +80,14 @@ public class RestRequest<TParam, TResult> {
 
 
     private Response.ErrorListener buildErrorListener() {
-        return error -> onError.accept(error);
+        return error -> {
+            if(error.networkResponse.statusCode == 401){
+                Intent intent = new Intent(this.ctx, LoginActivity.class);
+                ctx.startActivity(intent);
+                ((Activity)ctx).finish();
+            }
+            onError.accept(error);
+        };
     }
 
     private Request<TResult> buildRequest(int method, String url, Response.ErrorListener errorListener) {
@@ -108,7 +121,7 @@ public class RestRequest<TParam, TResult> {
             }
 
             @Override
-            public byte[] getBody() throws AuthFailureError {
+            public byte[] getBody() {
                 Log.d("INFO", " getBody() executado");
                 try {
                     String encoded = object == null ? null : gson.toJson(object).toString();
