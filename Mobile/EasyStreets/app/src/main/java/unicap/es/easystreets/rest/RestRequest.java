@@ -24,8 +24,8 @@ import java.util.function.Consumer;
 public class RestRequest<TParam, TResult> {
 
 
-    //public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
-    public final static String BASE_URL = "http://192.168.1.5:5000/api/";
+    public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
+    //public final static String BASE_URL = "http://192.168.1.5:5000/api/";
 
     private Class<TParam> typeParam;
     private Type typeResult;
