@@ -22,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("token", Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString("token", "");
+               //token = null;
                 if(token == null || token.isEmpty()){
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -39,6 +40,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 finish();
             }
-        }, 2000);
+        }, 5000);
     }
 }
