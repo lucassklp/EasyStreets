@@ -5,14 +5,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,7 +22,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -33,9 +30,7 @@ import java.util.logging.Logger;
 
 import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
-import unicap.es.easystreets.model.User;
 import unicap.es.easystreets.rest.RestRequest;
-import unicap.es.easystreets.utils.PermissionUtils;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener  {
 
@@ -85,8 +80,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     LOCATION_REFRESH_DISTANCE, this);
         }
 
-
-        //PQ java é uma porcaria, pt. 1:
         Type type = new TypeToken<List<Marker>>(){}.getType();
 
         RestRequest<Object, List<Marker>> request = new RestRequest(Object.class, type);
@@ -94,7 +87,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         request.setMethod(Request.Method.GET);
         request.execute(this, result -> {
             for (Marker marker : result){
-                mMap.addMarker(marker.getMarkerOptions());
+                mMap.addMarker(marker.getMarkerOptions(this));
             }
         }, err -> {
             Toast.makeText(this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
@@ -114,6 +107,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAlertBuilder.setView(mView);
         AlertDialog dialog = mAlertBuilder.create();
 
+        ArrayAdapter<StreetFurniture> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, StreetFurniture.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+
+        spinner.setAdapter(adapter);
+
         btn.setOnClickListener(v -> {
             Marker markr = new Marker();
             markr.setLatitude(latLng.latitude);
@@ -122,16 +120,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             markr.setTitle(etTitle.getText().toString());
             markr.setDescription(etDescription.getText().toString());
           
-            markr.setStreetFurniture(StreetFurniture.values()[0]);
+            markr.setStreetFurniture((StreetFurniture)spinner.getSelectedItem());
 
             RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
             request.setUrl(RestRequest.BASE_URL + "marker");
             request.setMethod(Request.Method.POST);
 
             request.execute(MapsActivity.this, markr, response -> {
-                MarkerOptions marker = new MarkerOptions();
-                marker.position(latLng);
-                mMap.addMarker(marker);
+                mMap.addMarker(markr.getMarkerOptions(this));
                 Toast.makeText(MapsActivity.this, "Adicionado com sucesso" + latLng, Toast.LENGTH_SHORT).show();
             }, err -> {
                 Toast.makeText(MapsActivity.this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
@@ -140,14 +136,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             dialog.dismiss();
         });
 
-
-
         dialog.show();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20));
         this.locationManager.removeUpdates(this);
     }
 
