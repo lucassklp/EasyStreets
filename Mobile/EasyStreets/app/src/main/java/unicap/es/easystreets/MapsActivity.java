@@ -48,7 +48,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     protected LocationManager locationManager;
-
+    private List<Marker> markers = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +127,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         request.setUrl(RestRequest.BASE_URL + "marker");
         request.setMethod(Request.Method.GET);
         request.execute(this, result -> {
+            this.markers = result;
             for (Marker marker : result){
                 mMap.addMarker(marker.getMarkerOptions(this));
                 // Set a listener for marker click.
@@ -202,24 +203,80 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    public Marker buscarMarker(LatLng latLng){
+        for (Marker markr : this.markers){
+            if(markr.getLatitude() == latLng.latitude && markr.getLongitude() == latLng.longitude){
+                return markr;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
-        // Retrieve the data from the marker.
-        Integer clickCount = (Integer) marker.getTag();
+        AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_marker_edit, null);
 
-        // Check if a click count was set, then display the click count.
-        if (clickCount != null) {
-            clickCount = clickCount + 1;
-            marker.setTag(clickCount);
-            Toast.makeText(this,
-                    marker.getTitle() +
-                            " has been clicked " + clickCount + " times.",
-                    Toast.LENGTH_SHORT).show();
-        }
+        Button btnSalvar = mView.findViewById(R.id.edit_btnAddMarker);
+        Button btnRemover = mView.findViewById(R.id.edit_btnRemoveMarker);
 
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
+        EditText etTitle = mView.findViewById(R.id.edit_txtTitle);
+        EditText etDescription = mView.findViewById(R.id.edit_txtDescription);
+        Spinner spinner = mView.findViewById(R.id.edit_spinner);
+        ArrayAdapter<StreetFurniture> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, StreetFurniture.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        spinner.setAdapter(adapter);
+
+        LatLng latLng = marker.getPosition();
+
+        final Marker markr = buscarMarker(latLng);
+        etTitle.setText(markr.getTitle());
+        etDescription.setText(markr.getDescription());
+        spinner.setSelection(markr.getStreetFurniture().ordinal());
+
+        mAlertBuilder.setView(mView);
+        AlertDialog dialog = mAlertBuilder.create();
+
+        btnSalvar.setOnClickListener(v -> {
+
+            markr.setTitle(etTitle.getText().toString());
+            markr.setDescription(etDescription.getText().toString());
+
+            markr.setStreetFurniture((StreetFurniture)spinner.getSelectedItem());
+
+            RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
+            request.setUrl(RestRequest.BASE_URL + "marker");
+            request.setMethod(Request.Method.PUT);
+
+            request.execute(MapsActivity.this, markr, response -> {
+                mMap.addMarker(markr.getMarkerOptions(this));
+                Toast.makeText(MapsActivity.this, "Atualizado com sucesso" + latLng, Toast.LENGTH_SHORT).show();
+            }, err -> {
+                Toast.makeText(MapsActivity.this, "Erro ao atualizar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+
+            dialog.dismiss();
+        });
+
+        btnRemover.setOnClickListener(v -> {
+
+            RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
+            request.setUrl(RestRequest.BASE_URL + "marker/"+markr.getId());
+            request.setMethod(Request.Method.DELETE);
+
+            request.execute(MapsActivity.this, response -> {
+                marker.remove();
+                Toast.makeText(MapsActivity.this, "Removido com sucesso" + latLng, Toast.LENGTH_SHORT).show();
+            }, err -> {
+                Toast.makeText(MapsActivity.this, "Erro ao remover o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+
+            dialog.dismiss();
+        });
+
+
+
+        dialog.show();
         return false;
     }
 }
