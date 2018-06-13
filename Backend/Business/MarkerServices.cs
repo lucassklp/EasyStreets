@@ -34,5 +34,15 @@ namespace Business
         {
             return this.repository.SelectAll();
         }
+
+        public void Remove(long id)
+        {
+            this.repository.Delete(id);
+        }
+
+        public Marker Update(Marker marker)
+        {
+            return this.repository.Update(marker);
+        }
     }
 }

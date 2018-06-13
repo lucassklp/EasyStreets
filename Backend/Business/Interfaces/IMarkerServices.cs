@@ -11,5 +11,7 @@ namespace Business.Interfaces
         Marker AddMarker(Marker marker);
         List<Marker> GetMarkersArround(MarkersAroundParametersDto param);
         List<Marker> List();
+        void Remove(long id);
+        Marker Update(Marker marker);
     }
 }

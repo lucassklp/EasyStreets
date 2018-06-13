@@ -52,5 +52,19 @@ namespace EasyStreets.Controllers
                 return BadRequest(results.Errors);
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateMarker([FromBody] Marker marker)
+        {
+            this.markerServices.Update(marker);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult RemoveMarker(long id)
+        {
+            this.markerServices.Remove(id);
+            return Ok();
+        }
     }
 }

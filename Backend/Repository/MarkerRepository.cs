@@ -17,6 +17,10 @@ namespace Repository
             this.crud = crud;
         }
 
+        public void Delete(long id)
+        {
+            this.crud.Delete(id);
+        }
 
         public Marker Insert(Marker m)
         {
@@ -29,5 +33,9 @@ namespace Repository
             return this.crud.SelectAll();
         }
 
+        public Marker Update(Marker item)
+        {
+            return this.crud.Update(item);
+        }
     }
 }

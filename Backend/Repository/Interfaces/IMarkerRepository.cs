@@ -9,5 +9,7 @@ namespace Repository.Interfaces
     {
         Marker Insert(Marker m);
         List<Marker> SelectAll();
+        void Delete(long id);
+        Marker Update(Marker item);
     }
 }
