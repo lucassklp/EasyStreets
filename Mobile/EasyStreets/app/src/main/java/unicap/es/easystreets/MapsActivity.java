@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -40,7 +41,7 @@ import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
 import unicap.es.easystreets.rest.RestRequest;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener  {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private static final long LOCATION_REFRESH_TIME = 300;
     private static final float LOCATION_REFRESH_DISTANCE = 1000;
@@ -100,7 +101,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMapClickListener(this);
+        mMap.setOnMarkerClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+
 
         if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             try {
@@ -115,6 +119,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     LOCATION_REFRESH_DISTANCE, this);
         }
 
+
+
         Type type = new TypeToken<List<Marker>>(){}.getType();
 
         RestRequest<Object, List<Marker>> request = new RestRequest(Object.class, type);
@@ -123,6 +129,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         request.execute(this, result -> {
             for (Marker marker : result){
                 mMap.addMarker(marker.getMarkerOptions(this));
+                // Set a listener for marker click.
             }
         }, err -> {
             Toast.makeText(this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
@@ -131,6 +138,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapClick(LatLng latLng) {
+
 
         AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_marker, null);
@@ -151,7 +159,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Marker markr = new Marker();
             markr.setLatitude(latLng.latitude);
             markr.setLongitude(latLng.longitude);
-
             markr.setTitle(etTitle.getText().toString());
             markr.setDescription(etDescription.getText().toString());
           
@@ -193,5 +200,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public boolean onMarkerClick(com.google.android.gms.maps.model.Marker marker) {
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 }
