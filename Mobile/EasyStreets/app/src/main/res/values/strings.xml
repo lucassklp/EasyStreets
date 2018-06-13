@@ -2,6 +2,7 @@
     <string name="app_name">EasyStreets</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_register"> Register </string>
+    <string name="function_logout">Logout</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
