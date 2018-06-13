@@ -4,6 +4,14 @@
     <string name="title_activity_register"> Register </string>
     <string name="function_logout">Logout</string>
 
+    <!-- Edit Marker -->
+    <string name="text_edit_marker">Edit Marker</string>
+    <string name="edit_txtTitle">Title</string>
+    <string name="edit_txtDescription">Description</string>
+    <string name="edit_spinner">Edit Spinner</string>
+    <string name="edit_btnAddMarker">Save</string>
+    <string name="edit_btnRemoveMarker">Remove Marker</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password </string>
