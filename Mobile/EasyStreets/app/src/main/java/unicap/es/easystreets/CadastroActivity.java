@@ -1,5 +1,6 @@
 package unicap.es.easystreets;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registerUser();
+                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
