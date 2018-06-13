@@ -1,13 +1,18 @@
 package unicap.es.easystreets;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.auth0.android.jwt.JWT;
+
+import unicap.es.easystreets.utils.PermissionUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -38,8 +43,18 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
+                enableMyLocation();
                 finish();
             }
         }, 5000);
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, 1,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        }
     }
 }
