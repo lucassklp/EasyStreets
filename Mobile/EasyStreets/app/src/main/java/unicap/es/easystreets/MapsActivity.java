@@ -20,8 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,7 +43,7 @@ import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
 import unicap.es.easystreets.rest.RestRequest;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnMarkerClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final long LOCATION_REFRESH_TIME = 300;
     private static final float LOCATION_REFRESH_DISTANCE = 1000;
@@ -49,6 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     protected LocationManager locationManager;
     private List<Marker> markers = null;
+    Switch switch1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        switch1 = findViewById(R.id.switch1);
+        switch1.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) this);
+
 
     }
     @Override
@@ -69,6 +75,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
+
+    /* Itens do Menu*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -83,7 +91,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 finish();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -278,5 +285,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         dialog.show();
         return false;
+    }
+
+    /* Switch */
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(switch1.isChecked()){
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }else{
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
     }
 }
