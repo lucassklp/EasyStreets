@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:textAlignment="center"
-        android:text="Add Marker" />
+        android:text="Adicionar Mobiliario" />
 
     <EditText
         android:id="@+id/txtTitle"
@@ -38,5 +38,5 @@
         android:id="@+id/btnAddMarker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add Marker" />
+        android:hint="Salvar" />
 </LinearLayout>
