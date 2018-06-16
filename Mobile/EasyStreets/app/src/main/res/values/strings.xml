@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">EasyStreets</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Entrar</string>
     <string name="title_activity_register"> Register </string>
-    <string name="function_logout">Logout</string>
-    <string name="function_export">Export</string>
+    <string name="function_logout">Sair</string>
+    <string name="function_export">Exportar</string>
 
     <!-- Edit Marker -->
     <string name="text_edit_marker">Edit Marker</string>
@@ -15,9 +15,9 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password </string>
+    <string name="prompt_password">Senha </string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in_short">Entrar</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -26,16 +26,16 @@
         completions."
     </string>
     <!-- Strings related to cadastro -->
-    <string name="prompt_nome">Name</string>
-    <string name="prompt_confirm_password"> Confirm Password </string>
-    <string name="action_sign_up"> Sign up </string>
-    <string name="action_resgiter"> Register </string>
+    <string name="prompt_nome">Nome</string>
+    <string name="prompt_confirm_password"> Confirmar Senha </string>
+    <string name="action_sign_up"> Registrar </string>
+    <string name="action_resgiter"> Registrar </string>
     <string name="sign_up_button"> Register </string>
 
 
     <string name="google_maps_key">AIzaSyBINLHNGeIOPHwcUNF1Ib0o5NJtw87Dsjc</string>
 
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa de Navegação</string>
 
 
     <string name="demo_title">Google Maps API Demos</string>
