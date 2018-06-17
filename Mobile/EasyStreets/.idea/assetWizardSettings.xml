@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="D:\Pessoal\Downloads\IconesPIN\IconesPIN\pin onibus.png" />
-                                      <entry key="outputName" value="bus_stop" />
+                                      <entry key="imageAsset" value="D:\Pessoal\Downloads\IconesPIN\pin academia.png" />
+                                      <entry key="outputName" value="gym" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ff0000" />
                                     </map>
