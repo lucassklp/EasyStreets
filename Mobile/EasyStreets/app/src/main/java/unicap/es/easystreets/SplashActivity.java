@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
                 enableMyLocation();
                 finish();
             }
-        }, 5000);
+        }, 6000);
     }
 
     private void enableMyLocation() {

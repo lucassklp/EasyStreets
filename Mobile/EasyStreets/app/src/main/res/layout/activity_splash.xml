@@ -4,16 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity">
-
+    tools:context=".SplashActivity"
+    android:background="#ffffffff">
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/logoes" />
+        android:id="@+id/imageView2"
+        android:layout_width="fill_parent"
+        android:layout_height="367dp"
+        android:src="@mipmap/bgapp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="417dp"
+        android:layout_height="fill_parent"
+        android:src="@mipmap/logoappes" />
 
 
 
