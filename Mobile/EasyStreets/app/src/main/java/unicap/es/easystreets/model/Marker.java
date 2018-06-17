@@ -16,7 +16,7 @@ public class Marker {
     private double latitude;
     private double longitude;
     private String description;
-    private String title;
+
     private StreetFurniture streetFurniture;
 
     public long getId() {
@@ -51,14 +51,6 @@ public class Marker {
         this.description = description;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public StreetFurniture getStreetFurniture() {
         return streetFurniture;
     }
@@ -70,7 +62,7 @@ public class Marker {
     public MarkerOptions getMarkerOptions(Context ctx){
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(this.getLatitude(), this.getLongitude()));
-        markerOptions.title(this.getTitle());
+        markerOptions.title(this.getDescription());
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons(ctx, this.streetFurniture.getResource(), 200, 200)));
         return markerOptions;
     }

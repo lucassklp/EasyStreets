@@ -16,18 +16,11 @@
         android:text="@string/text_edit_marker" />
 
     <EditText
-        android:id="@+id/edit_txtTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_txtTitle" />
-
-    <EditText
         android:id="@+id/edit_txtDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/edit_txtDescription" />
-
 
     <Spinner
         android:id="@+id/edit_spinner"
