@@ -147,10 +147,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapClick(LatLng latLng) {
 
-
         AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_marker, null);
-        EditText etTitle = mView.findViewById(R.id.txtTitle);
         EditText etDescription = mView.findViewById(R.id.txtDescription);
         Spinner spinner = mView.findViewById(R.id.spinner);
         Button btn = mView.findViewById(R.id.btnAddMarker);
@@ -167,17 +165,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Marker markr = new Marker();
             markr.setLatitude(latLng.latitude);
             markr.setLongitude(latLng.longitude);
-            markr.setTitle(etTitle.getText().toString());
             markr.setDescription(etDescription.getText().toString());
           
             markr.setStreetFurniture((StreetFurniture)spinner.getSelectedItem());
 
-            RestRequest<Marker, Object> request = new RestRequest(Marker.class, Object.class);
+            RestRequest<Marker, Marker> request = new RestRequest(Marker.class, Marker.class);
             request.setUrl(RestRequest.BASE_URL + "marker");
             request.setMethod(Request.Method.POST);
 
             request.execute(MapsActivity.this, markr, response -> {
-                mMap.addMarker(markr.getMarkerOptions(this));
+                mMap.addMarker(response.getMarkerOptions(this));
+
                 Toast.makeText(MapsActivity.this, "Adicionado com sucesso" + latLng, Toast.LENGTH_SHORT).show();
             }, err -> {
                 Toast.makeText(MapsActivity.this, "Erro ao adicionar o marker" + err.getMessage(), Toast.LENGTH_SHORT).show();
@@ -227,7 +225,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Button btnSalvar = mView.findViewById(R.id.edit_btnAddMarker);
         Button btnRemover = mView.findViewById(R.id.edit_btnRemoveMarker);
 
-        EditText etTitle = mView.findViewById(R.id.edit_txtTitle);
         EditText etDescription = mView.findViewById(R.id.edit_txtDescription);
         Spinner spinner = mView.findViewById(R.id.edit_spinner);
         ArrayAdapter<StreetFurniture> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, StreetFurniture.values());
@@ -237,7 +234,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng latLng = marker.getPosition();
 
         final Marker markr = buscarMarker(latLng);
-        etTitle.setText(markr.getTitle());
         etDescription.setText(markr.getDescription());
         spinner.setSelection(markr.getStreetFurniture().ordinal());
 
@@ -245,8 +241,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         AlertDialog dialog = mAlertBuilder.create();
 
         btnSalvar.setOnClickListener(v -> {
-
-            markr.setTitle(etTitle.getText().toString());
             markr.setDescription(etDescription.getText().toString());
 
             markr.setStreetFurniture((StreetFurniture)spinner.getSelectedItem());
@@ -272,6 +266,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             request.setMethod(Request.Method.DELETE);
 
             request.execute(MapsActivity.this, response -> {
+                this.markers.remove(this.buscarMarker(marker.getPosition()));
                 marker.remove();
                 Toast.makeText(MapsActivity.this, "Removido com sucesso" + latLng, Toast.LENGTH_SHORT).show();
             }, err -> {

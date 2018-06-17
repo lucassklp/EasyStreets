@@ -53,7 +53,7 @@ namespace EasyStreets.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult UpdateMarker([FromBody] Marker marker)
         {
             this.markerServices.Update(marker);
