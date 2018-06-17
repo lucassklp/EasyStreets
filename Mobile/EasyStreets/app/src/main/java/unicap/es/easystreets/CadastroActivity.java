@@ -1,4 +1,4 @@
-package unicap.es.easystreets;
+﻿package unicap.es.easystreets;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +25,18 @@ public class CadastroActivity extends AppCompatActivity {
 
         Button b = (Button)findViewById(R.id.register_button);
         b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerUser();
+                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        Button v = (Button)findViewById(R.id.voltar_button);
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerUser();
