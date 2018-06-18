@@ -131,6 +131,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setOnMapClickListener(this);
         mMap.setOnMarkerClickListener(this);
+        mMap.setMaxZoomPreference(20f);
+        //mMap.setMinZoomPreference(6.0f);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
 
@@ -139,6 +141,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             try {
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
             }catch(SecurityException ex){
                 Logger.getGlobal().warning(ex.getMessage());
             }
@@ -314,4 +317,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
     }
+
+
+
 }

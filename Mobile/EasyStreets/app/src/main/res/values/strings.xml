@@ -30,6 +30,7 @@
     <string name="prompt_confirm_password"> Confirmar Senha </string>
     <string name="action_sign_up"> Registrar </string>
     <string name="action_resgiter"> Registrar </string>
+    <string name="action_voltar"> Voltar </string>
     <string name="sign_up_button"> Registrar </string>
 
 

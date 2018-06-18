@@ -33,6 +33,16 @@ public class CadastroActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Button v = (Button) findViewById(R.id.voltar_button);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void registerUser()
