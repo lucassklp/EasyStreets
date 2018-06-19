@@ -42,10 +42,12 @@ import java.util.logging.Logger;
 
 import unicap.es.easystreets.model.Marker;
 import unicap.es.easystreets.model.StreetFurniture;
+import unicap.es.easystreets.model.User;
 import unicap.es.easystreets.rest.RestRequest;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener, GoogleMap.OnMarkerClickListener, CompoundButton.OnCheckedChangeListener {
 
+    public final static String BASE_URL = "http://lucassklp.a2hosted.com/api/";
     private static final long LOCATION_REFRESH_TIME = 300;
     private static final float LOCATION_REFRESH_DISTANCE = 1000;
 
@@ -112,6 +114,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         });
                 AlertDialog alertDialog = alerta.create();
                 alertDialog.show();
+                break;
+
+            case R.id.function_export:
+                RestRequest<Object, Object> request = new RestRequest(Object.class, Object.class);
+
+                request.setUrl(RestRequest.BASE_URL + "geojson");
+                request.setMethod(Request.Method.POST);
+                request.execute(this, result -> {
+                    Toast.makeText(this, "Arquivo enviado para o seu email", Toast.LENGTH_SHORT).show();
+                }, err -> {
+                    Toast.makeText(this, "Erro ao gerar o arquivo" + err.getMessage(), Toast.LENGTH_SHORT).show();
+                });
                 break;
         }
         return super.onOptionsItemSelected(item);
