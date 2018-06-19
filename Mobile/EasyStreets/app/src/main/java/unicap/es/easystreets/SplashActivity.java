@@ -31,16 +31,19 @@ public class SplashActivity extends AppCompatActivity {
                 if(token == null || token.isEmpty()){
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
                 else{
                     JWT jwt = new JWT(token);
                     if(jwt.isExpired(0)){
                         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                     else{
                         Intent intent = new Intent(SplashActivity.this, MapsActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 }
                 enableMyLocation();
